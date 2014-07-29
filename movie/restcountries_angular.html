@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Movie Review</title>
+    <script src="../bower_components/angular/angular.js"></script>
+    <link rel="stylesheet" href="base.css"/>
+    <script>
+        var mapp = angular.module('myApp', []);
+
+        mapp.controller('MyCtrl', function ($scope, $http) {
+
+
+
+
+            // Define a search property on the model
+            $scope.search = '';
+
+            $http.get('http://restcountries.eu/rest/v1').success(function (data) {
+                //console.log(data);
+
+
+
+                // loop over all the countries to generate the object
+                var resolveCode = {};
+                for (var i = 0, len = data.length; i < len; i++) {
+                    // generate a new property and value in the format:
+                    // 'IRN': 'Iran'
+                    resolveCode[data[i].alpha3Code] = data[i].name;
+                }
+                console.log(resolveCode);
+
+                // for loop to create a property called borderNames on the country object
+                for (i = 0, len = data.length; i < len; i++) {
+                    data[i].borderNames = [];
+                    for (var j = 0, len2 = data[i].borders.length; j < len2; j++) {
+                        // data[i] --> resolves to the country object
+                        // data[i].borders resolves to an array ['IRN', 'TKM', 'AFK']
+                        // data[i].borders[j] resolves to 'IRN'
+                        // data[i].borderNames.push('IRN')
+                        // pushing IRN into the borderNames
+                        // converting 'IRN' to Iran by usong the resolveCode
+                        // resolveCode['IRN'] --> Iran
+                         data[i].borderNames.push(resolveCode[data[i].borders[j]]);
+                    }
+
+                }
+
+
+
+
+
+                $scope.resolveCode = resolveCode;
+                $scope.countries = data;
+
+            });
+
+
+        });
+    </script>
+</head>
+<body>
+<div ng-controller="MyCtrl">
+
+    <input type="text" ng-model="search"/>
+
+    <div ng-repeat="country in countries | filter:search | orderBy:'-capital' ">
+        <div>
+            <span>{{country.name}} :: {{country.capital}}</span>
+            <img ng-src="{{country.url}}" />
+            <div>
+                <span class="border" ng-repeat="code in country.borders">{{resolveCode[code]}}</span>
+            </div>
+            <div>
+                <span class="border" ng-repeat="borderCountry in country.borderNames">{{borderCountry}}</span>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+</body>
+</html>

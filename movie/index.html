@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Movie Review</title>
+    <script src="../bower_components/angular/angular.js"></script>2
+    <script src="financialfuncsangular.js"></script>
+    <script>
+        var mapp = angular.module('myApp', []);
+
+        mapp.controller('MyCtrl', function ($scope, $http) {
+
+            $scope.name = 'Hamid Hoseini';
+            $scope.message = ' says hi!';
+            $scope.obj = {
+                address: {
+                    city: 'Sunnyvale'
+                }
+            };
+
+        });
+    </script>
+</head>
+<body>
+    <div ng-controller="MyCtrl">
+        <input type="text" ng-model="name"/>
+        <span>
+            {{name + message}}
+        </span>
+        <div>
+            City: {{obj.address.city}}
+        </div>
+
+    </div>
+
+</body>
+</html>

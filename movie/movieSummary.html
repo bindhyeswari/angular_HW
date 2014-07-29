@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="base.css"/>
+    <style>
+        div.img {
+            position: relative;
+            width: 200px;
+            height: 300px;
+            padding: 0;
+            margin: 0;
+        }
+
+        div.summary {
+            position: absolute;
+            bottom: 0;
+            color: transparent;
+            font-size: 0.85em;
+            padding: 1em;
+            background-color: transparent;
+            display: block;
+
+        }
+
+        div.img:hover > div.summary {
+            /*display: block;*/
+            color: white;
+            background-color: rgba(0,0,0,0.5);
+
+            -moz-transition: all 500ms ease;
+        }
+
+
+    </style>
+</head>
+<body>
+
+    <div class="img">
+        <div class="summary">In the wake of a disaster that changed the world, the growing and genetically evolving apes find themselves at a critical point with the human race.</div>
+        <img width="200" src="pota.jpg" alt=""/>
+    </div>
+
+</body>
+</html>

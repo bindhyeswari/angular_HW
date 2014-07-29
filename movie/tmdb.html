@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html ng-app="tmdbApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="base.css"/>
+    <script src="../bower_components/angular/angular.js"></script>
+    <script src="../configuration.js"></script>
+    <script>
+
+        // Develop the application for a user to search for movies by name using the tmdb api
+        // Steps
+        // script src angularjs
+        // get a hello world application up and running
+        // use the $http to make a request based on the following request
+
+        angular.module('tmdbApp', []).controller('MovieSearchCtrl', function ($scope, $http) {
+            $scope.message = 'Hello World!';
+
+            $scope.inp_movie_search = '';
+
+            $scope.getMovie = function (event) {
+                if (event.keyCode === 13) {
+                    console.log($scope.inp_movie_search);
+
+                    $http.get('http://api.themoviedb.org/3/search/movie?api_key=' + api_key + '&query=' + $scope.inp_movie_search)
+                            .success(function(data){
+                                console.log(data);
+                            });
+                }
+            };
+
+
+        });
+
+
+
+
+        console.log(api_key);
+    </script>
+</head>
+<body>
+    <div ng-controller="MovieSearchCtrl">
+        <input type="text" ng-model="inp_movie_search" ng-keydown="getMovie($event)"/>
+        {{message}}
+    </div>
+</body>
+</html>
