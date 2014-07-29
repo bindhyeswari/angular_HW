@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="countrynames.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <link rel="stylesheet" href="base.css"/>
+    <script>
+
+        /**
+         * 1. Script src angular
+         * 2. Create a module
+         * 3. Map the module name using ng-App to the portion to be controlled by the module
+         * 4. Create a controller
+         * 5. create a view by mapping the ng-controller to an element
+         * 6. Launch and check
+         * */
+
+        var myApp = angular.module('myApp', []);
+
+        myApp.filter('currency', function (inp) {
+            return '$' + inp;
+        });
+
+        myApp.controller('MyCtrl', function ($scope) {
+
+            // $scope is the model
+            // MyCtrl is the controller
+
+            console.log(countries[0]);
+
+            $scope.message = {
+                country_inp: 'Hello World!',
+                countries: countries
+            };
+
+
+        });
+
+        var func = function (name, definition) {
+            alert(definition);
+            console.log(); // all parameters in definition
+        };
+
+        func('controller1', function(scopedata) {
+
+        });
+
+
+    </script>
+</head>
+<body>
+
+    <div ng-controller="MyCtrl">
+        <input type="text" ng-model="message.country_inp"/>
+        <div>{{message.country_inp}}</div>
+        <ul>
+            <li ng-repeat="c in message.countries | filter: message.country_inp">
+                {{c}}
+            </li>
+        </ul>
+    </div>
+
+</body>
+</html>
